@@ -35,7 +35,7 @@ Traditional security systems return opaque binary labels (*"Scam"* vs *"Not Scam
 | :--- | :--- | :---: | :--- |
 | **Backend API** | **Render** | 🟢 Live | `https://scamshield-ai-l8yi.onrender.com` |
 | **Database** | **MongoDB Atlas** | 🟢 Connected | `cluster0.cxwisdb.mongodb.net` |
-| **Frontend Web** | **Vercel** | 🟢 Ready | `https://scamshield-ai.vercel.app` *(or user deployment)* |
+| **Frontend Web** | **Vercel** | 🟢 Ready | `https://scamshield-ai-beta.vercel.app/` *(or user deployment)* |
 | **Interactive Docs** | **FastAPI Swagger** | 🟢 Live | `https://scamshield-ai-l8yi.onrender.com/api/v1/docs` |
 
 ---
