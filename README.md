@@ -41,6 +41,55 @@ Traditional security systems return opaque binary labels (*"Scam"* vs *"Not Scam
 
 ---
 
+## 📸 Product Screenshots & Visual Walkthrough
+
+### 1. 🚀 Landing Page & Threat Intelligence Hero
+> Modern cybersecurity landing experience featuring staggered entrance animations, active threat intelligence badge, and floating signal telemetry nodes.
+
+<div align="center">
+  <img src="docs/screenshots/landing_page_preview.svg" width="100%" alt="ScamShield AI Landing Page Preview"/>
+</div>
+
+<br/>
+
+### 2. 🔍 Multi-Mode Scanner & Dynamic 6-Step Pipeline
+> Interactive scanner supporting Text, URL, and Fused analysis with a real-time 6-step progress pipeline visualizing zero-trust payload inspection.
+
+<div align="center">
+  <img src="docs/screenshots/scanner_preview.svg" width="100%" alt="ScamShield AI Scanner Pipeline Preview"/>
+</div>
+
+<br/>
+
+### 3. 📊 Explainable AI Threat Report & Count-Up Risk Gauge
+> Cascading reveal presenting the animated 0–100 risk gauge, verbatim evidence quotes with copy actions, expandable threat rationale, and actionable safety guidance.
+
+<div align="center">
+  <img src="docs/screenshots/results_preview.svg" width="100%" alt="ScamShield AI Result Report Preview"/>
+</div>
+
+<br/>
+
+### 4. ☁️ Live Cloud Production Architecture
+> Deployed across Render (FastAPI ASGI Web Service), MongoDB Atlas (M0 Shared Managed Cluster), and Vercel (Edge SPA Hosting).
+
+<div align="center">
+  <table width="100%">
+    <tr>
+      <td width="33%" align="center"><b>Render Backend Cloud</b></td>
+      <td width="33%" align="center"><b>MongoDB Atlas Cluster</b></td>
+      <td width="33%" align="center"><b>Vercel Frontend Edge</b></td>
+    </tr>
+    <tr>
+      <td><img src="docs/screenshots/render_deployment.png" width="100%" alt="Render Deployment"/></td>
+      <td><img src="docs/screenshots/mongodb_atlas.png" width="100%" alt="MongoDB Atlas"/></td>
+      <td><img src="docs/screenshots/vercel_deployment.png" width="100%" alt="Vercel Deployment"/></td>
+    </tr>
+  </table>
+</div>
+
+---
+
 ## ✨ Features & Capabilities
 
 ### 1. 🔍 Multi-Mode Threat Scanner (`/scanner`)

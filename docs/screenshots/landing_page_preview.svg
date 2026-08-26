@@ -1,0 +1,138 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 680" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#070B14"/>
+      <stop offset="50%" stop-color="#0D1321"/>
+      <stop offset="100%" stop-color="#070B14"/>
+    </linearGradient>
+    <linearGradient id="blueGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#38BDF8"/>
+      <stop offset="100%" stop-color="#2563EB"/>
+    </linearGradient>
+    <linearGradient id="cardGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#111827" stop-opacity="0.85"/>
+      <stop offset="100%" stop-color="#0D1321" stop-opacity="0.95"/>
+    </linearGradient>
+    <linearGradient id="glowRing" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#EF4444"/>
+      <stop offset="100%" stop-color="#F97316"/>
+    </linearGradient>
+    <filter id="cardShadow" x="-10%" y="-10%" width="120%" height="125%">
+      <feDropShadow dx="0" dy="12" stdDeviation="16" flood-color="#000000" flood-opacity="0.6"/>
+    </filter>
+    <filter id="neonGlow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="8" result="blur"/>
+      <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+    </filter>
+  </defs>
+
+  <!-- Background Canvas -->
+  <rect width="1200" height="680" rx="16" fill="url(#bgGrad)" stroke="#1E293B" stroke-width="2"/>
+
+  <!-- Cyber Grid Subtle Lines -->
+  <g opacity="0.12" stroke="#38BDF8" stroke-width="1">
+    <line x1="0" y1="120" x2="1200" y2="120"/>
+    <line x1="0" y1="240" x2="1200" y2="240"/>
+    <line x1="0" y1="360" x2="1200" y2="360"/>
+    <line x1="0" y1="480" x2="1200" y2="480"/>
+    <line x1="0" y1="600" x2="1200" y2="600"/>
+    <line x1="200" y1="0" x2="200" y2="680"/>
+    <line x1="400" y1="0" x2="400" y2="680"/>
+    <line x1="600" y1="0" x2="600" y2="680"/>
+    <line x1="800" y1="0" x2="800" y2="680"/>
+    <line x1="1000" y1="0" x2="1000" y2="680"/>
+  </g>
+
+  <!-- Navbar -->
+  <rect x="0" y="0" width="1200" height="70" fill="#0A0F1D" fill-opacity="0.9" stroke="#1E293B" stroke-width="1"/>
+  <g transform="translate(40, 20)">
+    <!-- Logo Icon -->
+    <rect x="0" y="0" width="32" height="32" rx="8" fill="#1E3A8A" stroke="#3B82F6" stroke-width="1.5"/>
+    <path d="M16 6 L26 10 L26 18 C26 23 16 27 16 27 C16 27 6 23 6 18 L6 10 Z" fill="none" stroke="#38BDF8" stroke-width="2" stroke-linejoin="round"/>
+    <path d="M12 16 L15 19 L21 13" fill="none" stroke="#38BDF8" stroke-width="2" stroke-linecap="round"/>
+    <!-- Logo Text -->
+    <text x="44" y="22" fill="#FFFFFF" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="18" font-weight="800">ScamShield <tspan fill="#38BDF8">AI</tspan></text>
+  </g>
+
+  <!-- Nav Links -->
+  <g transform="translate(820, 22)" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="14" font-weight="600">
+    <text x="0" y="18" fill="#94A3B8">Methodology</text>
+    <text x="120" y="18" fill="#94A3B8">Sign In</text>
+    <rect x="190" y="-3" width="130" height="36" rx="10" fill="url(#blueGrad)"/>
+    <text x="215" y="20" fill="#FFFFFF" font-weight="700">Analyze Now →</text>
+  </g>
+
+  <!-- Hero Content Left -->
+  <g transform="translate(60, 130)">
+    <!-- Badge -->
+    <rect x="0" y="0" width="220" height="30" rx="15" fill="#1E293B" stroke="#38BDF8" stroke-width="1" stroke-opacity="0.4"/>
+    <circle cx="16" cy="15" r="4" fill="#34D399"/>
+    <text x="28" y="19" fill="#38BDF8" font-family="-apple-system, sans-serif" font-size="12" font-weight="700">AI Threat Intelligence · CS-2</text>
+
+    <!-- Headline -->
+    <text x="0" y="85" fill="#FFFFFF" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="44" font-weight="900" letter-spacing="-1">
+      Detect Investment Scams
+    </text>
+    <text x="0" y="140" fill="url(#blueGrad)" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="44" font-weight="900" letter-spacing="-1">
+      Before They Reach You.
+    </text>
+
+    <!-- Subtitle -->
+    <text x="0" y="195" fill="#94A3B8" font-family="-apple-system, sans-serif" font-size="16" font-weight="400">
+      Analyze suspicious Telegram pitches, WhatsApp messages, or URLs.
+    </text>
+    <text x="0" y="222" fill="#94A3B8" font-family="-apple-system, sans-serif" font-size="16" font-weight="400">
+      Get an <tspan fill="#FFFFFF" font-weight="700">explainable 0–100 risk score</tspan> with verbatim evidence in seconds.
+    </text>
+
+    <!-- CTAs -->
+    <rect x="0" y="260" width="160" height="48" rx="12" fill="url(#blueGrad)" filter="url(#cardShadow)"/>
+    <text x="32" y="290" fill="#FFFFFF" font-family="-apple-system, sans-serif" font-size="16" font-weight="700">Analyze Now →</text>
+
+    <rect x="180" y="260" width="150" height="48" rx="12" fill="#1E293B" stroke="#334155" stroke-width="1"/>
+    <text x="210" y="290" fill="#E2E8F0" font-family="-apple-system, sans-serif" font-size="15" font-weight="600">How It Works ↓</text>
+  </g>
+
+  <!-- Live Hero Threat Shield Card Right -->
+  <g transform="translate(680, 120)" filter="url(#cardShadow)">
+    <rect width="460" height="490" rx="24" fill="url(#cardGrad)" stroke="#1E3A8A" stroke-width="1.5"/>
+
+    <!-- Header bar -->
+    <path d="M0 24 C0 10.7 10.7 0 24 0 L436 0 C449.3 0 460 10.7 460 24 L460 50 L0 50 Z" fill="#0A0F1D" fill-opacity="0.8"/>
+    <circle cx="25" cy="25" r="5" fill="#EF4444"/>
+    <circle cx="42" cy="25" r="5" fill="#F59E0B"/>
+    <circle cx="59" cy="25" r="5" fill="#10B981"/>
+    <text x="180" y="30" fill="#64748B" font-family="-apple-system, sans-serif" font-size="12" font-weight="600">THREAT ANALYSIS REPORT</text>
+
+    <!-- Gauge Container -->
+    <g transform="translate(230, 160)">
+      <!-- Track Ring -->
+      <circle cx="0" cy="0" r="65" fill="none" stroke="#1E293B" stroke-width="12"/>
+      <!-- Active Ring (74 Score) -->
+      <circle cx="0" cy="0" r="65" fill="none" stroke="url(#glowRing)" stroke-width="12" stroke-dasharray="408" stroke-dashoffset="106" stroke-linecap="round" transform="rotate(-90)"/>
+      <text x="0" y="12" fill="#FFFFFF" font-family="-apple-system, sans-serif" font-size="38" font-weight="900" text-anchor="middle">74</text>
+      <text x="0" y="32" fill="#94A3B8" font-family="-apple-system, sans-serif" font-size="12" font-weight="700" text-anchor="middle">/ 100</text>
+    </g>
+
+    <!-- Severity Badge -->
+    <g transform="translate(160, 240)">
+      <rect x="0" y="0" width="140" height="28" rx="14" fill="#450A0A" stroke="#EF4444" stroke-width="1"/>
+      <text x="70" y="19" fill="#F87171" font-family="-apple-system, sans-serif" font-size="12" font-weight="800" text-anchor="middle">HIGH THREAT</text>
+    </g>
+
+    <!-- Sample Detected Indicators -->
+    <g transform="translate(25, 290)">
+      <!-- Card 1 -->
+      <rect x="0" y="0" width="410" height="70" rx="12" fill="#0A0F1D" stroke="#EF4444" stroke-width="1" stroke-opacity="0.5"/>
+      <text x="16" y="24" fill="#F87171" font-family="-apple-system, sans-serif" font-size="13" font-weight="700">TI-01 Guaranteed Return Claim</text>
+      <text x="350" y="24" fill="#F87171" font-family="-apple-system, sans-serif" font-size="12" font-weight="700">+15 pts</text>
+      <text x="16" y="48" fill="#94A3B8" font-family="monospace" font-size="11">"100% guaranteed profit with zero risk"</text>
+
+      <!-- Card 2 -->
+      <rect x="0" y="80" width="410" height="70" rx="12" fill="#0A0F1D" stroke="#F59E0B" stroke-width="1" stroke-opacity="0.5"/>
+      <text x="16" y="104" fill="#FBBF24" font-family="-apple-system, sans-serif" font-size="13" font-weight="700">TI-06 Payment / Crypto Solicitation</text>
+      <text x="350" y="104" fill="#FBBF24" font-family="-apple-system, sans-serif" font-size="12" font-weight="700">+25 pts</text>
+      <text x="16" y="128" fill="#94A3B8" font-family="monospace" font-size="11">"Send USDT to crypto wallet to activate"</text>
+    </g>
+  </g>
+</svg>
