@@ -8,7 +8,8 @@
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.0+-3178C6?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
 [![Python](https://img.shields.io/badge/Python-3.12-3776AB?style=for-the-badge&logo=python&logoColor=white)](https://www.python.org/)
 [![MongoDB Atlas](https://img.shields.io/badge/MongoDB-Atlas%20Cloud-47A248?style=for-the-badge&logo=mongodb&logoColor=white)](https://www.mongodb.com/atlas)
-[![Render](https://img.shields.io/badge/Render-Backend%20Live-46E3B7?style=for-the-badge&logo=render&logoColor=black)](https://render.com)
+[![Render](https://img.shields.io/badge/Render-Backend%20Live-46E3B7?style=for-the-badge&logo=render&logoColor=black)](https://scamshield-ai-l8yi.onrender.com)
+[![Vercel](https://img.shields.io/badge/Vercel-Frontend%20Live-000000?style=for-the-badge&logo=vercel&logoColor=white)](https://scamshield-ai-beta.vercel.app/)
 [![Tailwind CSS](https://img.shields.io/badge/Tailwind-CSS%20v4-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)](https://tailwindcss.com/)
 [![License](https://img.shields.io/badge/License-MIT-blue.svg?style=for-the-badge)](LICENSE)
 
@@ -33,10 +34,10 @@ Traditional security systems return opaque binary labels (*"Scam"* vs *"Not Scam
 
 | Component | Platform | Status | URL |
 | :--- | :--- | :---: | :--- |
-| **Backend API** | **Render** | 🟢 Live | `https://scamshield-ai-l8yi.onrender.com` |
+| **Frontend Web** | **Vercel** | 🟢 Live | [`https://scamshield-ai-beta.vercel.app`](https://scamshield-ai-beta.vercel.app/) |
+| **Backend API** | **Render** | 🟢 Live | [`https://scamshield-ai-l8yi.onrender.com`](https://scamshield-ai-l8yi.onrender.com) |
 | **Database** | **MongoDB Atlas** | 🟢 Connected | `cluster0.cxwisdb.mongodb.net` |
-| **Frontend Web** | **Vercel** | 🟢 Ready | `https://scamshield-ai-beta.vercel.app/` *(or user deployment)* |
-| **Interactive Docs** | **FastAPI Swagger** | 🟢 Live | `https://scamshield-ai-l8yi.onrender.com/api/v1/docs` |
+| **Interactive Docs** | **FastAPI Swagger** | 🟢 Live | [`https://scamshield-ai-l8yi.onrender.com/api/v1/docs`](https://scamshield-ai-l8yi.onrender.com/api/v1/docs) |
 
 ---
 
