@@ -1,7 +1,7 @@
 /**
  * src/pages/LandingPage.tsx
- * Public landing page per UI-UX-DESIGN.md §13.
- * Sections: Navbar → Hero → How It Works → Features → Security Strip → CTA → Footer
+ * Premium Cybersecurity & AI Landing Page.
+ * Staggered animations, interactive cards, floating shield nodes, and trust indicators.
  */
 import { useRef } from 'react';
 import { Link } from 'react-router-dom';
@@ -15,42 +15,45 @@ import {
   Lock,
   EyeOff,
   CheckCircle,
-  AlertTriangle,
   ArrowRight,
   Cpu,
+  Sparkles,
+  Zap,
+  Activity,
 } from 'lucide-react';
+import { CyberBackground } from '../components/ui/CyberBackground';
 
 /* ── Navbar ───────────────────────────────────────────────────────────────── */
 function Navbar() {
   return (
     <header
-      className="sticky top-0 z-50 flex items-center justify-between px-6 md:px-12 h-16 border-b"
+      className="sticky top-0 z-50 flex items-center justify-between px-6 md:px-12 h-16 border-b transition-all"
       style={{
-        background: 'rgba(7,11,20,0.85)',
-        backdropFilter: 'blur(12px)',
+        background: 'rgba(7, 11, 20, 0.85)',
+        backdropFilter: 'blur(16px)',
         borderColor: 'var(--color-border)',
       }}
     >
-      <Link to="/" className="flex items-center gap-2">
-        <ShieldCheck size={26} style={{ color: 'var(--color-brand)' }} aria-hidden="true" />
-        <span className="text-base font-bold" style={{ color: 'var(--color-text-primary)' }}>
+      <Link to="/" className="flex items-center gap-2.5 group">
+        <div className="p-1.5 rounded-lg bg-blue-950/60 border border-blue-800/40 group-hover:border-blue-500/60 transition-colors">
+          <ShieldCheck size={22} style={{ color: 'var(--color-brand)' }} aria-hidden="true" />
+        </div>
+        <span className="text-base font-bold tracking-tight" style={{ color: 'var(--color-text-primary)' }}>
           ScamShield <span style={{ color: 'var(--color-accent)' }}>AI</span>
         </span>
       </Link>
 
-      <nav className="flex items-center gap-2 md:gap-4">
+      <nav className="flex items-center gap-3 md:gap-4">
         <Link
           to="/about"
-          className="hidden md:block text-sm font-medium px-3 py-2 rounded-lg transition-colors"
+          className="hidden md:block text-sm font-medium px-3.5 py-2 rounded-lg transition-colors hover:text-white"
           style={{ color: 'var(--color-text-muted)' }}
-          onMouseEnter={e => (e.currentTarget.style.color = 'var(--color-text-secondary)')}
-          onMouseLeave={e => (e.currentTarget.style.color = 'var(--color-text-muted)')}
         >
-          About
+          Methodology
         </Link>
         <Link
           to="/login"
-          className="text-sm font-medium px-4 py-2 rounded-lg border transition-colors"
+          className="text-sm font-medium px-4 py-2 rounded-xl border transition-all hover:bg-slate-800/60"
           style={{
             color: 'var(--color-text-secondary)',
             borderColor: 'var(--color-border)',
@@ -60,13 +63,14 @@ function Navbar() {
         </Link>
         <Link
           to="/register"
-          className="text-sm font-semibold px-4 py-2 rounded-full transition-all"
+          className="btn-primary text-sm font-semibold px-5 py-2 rounded-xl transition-all flex items-center gap-2"
           style={{
-            background: 'var(--color-brand)',
+            background: 'linear-gradient(135deg, #2563EB 0%, #1D4ED8 100%)',
             color: '#ffffff',
           }}
         >
-          Start Scanning
+          <span>Analyze Now</span>
+          <ArrowRight size={14} aria-hidden="true" />
         </Link>
       </nav>
     </header>
@@ -78,105 +82,147 @@ function Hero({ howItWorksRef }: { howItWorksRef: React.RefObject<HTMLElement | 
   const scroll = () => howItWorksRef.current?.scrollIntoView({ behavior: 'smooth' });
 
   return (
-    <section className="hero-bg py-20 md:py-28 px-6 md:px-12">
-      <div className="max-w-6xl mx-auto flex flex-col-reverse md:flex-row items-center gap-12">
-        {/* Text */}
-        <div className="flex-1">
+    <section className="relative py-20 md:py-32 px-6 md:px-12 overflow-hidden">
+      <div className="max-w-6xl mx-auto flex flex-col-reverse md:flex-row items-center gap-14 relative z-10">
+        {/* Left Text Content */}
+        <div className="flex-1 text-left">
+          {/* Badge */}
           <div
-            className="inline-flex items-center gap-2 text-xs font-semibold px-3 py-1.5 rounded-full mb-6 border"
+            className="inline-flex items-center gap-2 text-xs font-semibold px-3.5 py-1.5 rounded-full mb-6 border animate-fade-in"
             style={{
               color: 'var(--color-accent)',
-              borderColor: 'var(--color-brand-subtle)',
-              background: 'var(--color-brand-subtle)',
+              borderColor: 'rgba(56, 189, 248, 0.3)',
+              background: 'rgba(30, 58, 95, 0.4)',
+              boxShadow: '0 0 15px rgba(56, 189, 248, 0.15)',
             }}
           >
-            <Cpu size={12} aria-hidden="true" />
-            AI Cybersecurity Tool — CS-2
+            <Cpu size={13} className="animate-pulse text-sky-400" aria-hidden="true" />
+            <span>AI Threat Intelligence · CS-2</span>
+            <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping" />
           </div>
 
+          {/* Heading */}
           <h1
-            className="text-4xl md:text-5xl font-bold leading-tight mb-5"
-            style={{ color: 'var(--color-text-primary)', letterSpacing: '-0.02em' }}
+            className="text-4xl sm:text-5xl lg:text-6xl font-extrabold leading-[1.15] mb-6 animate-fade-in-up delay-100"
+            style={{ color: 'var(--color-text-primary)', letterSpacing: '-0.03em' }}
           >
             Detect Investment Scams
             <br />
-            <span style={{ color: 'var(--color-brand)' }}>Before They Reach You.</span>
+            <span className="bg-gradient-to-r from-blue-500 via-sky-400 to-indigo-400 bg-clip-text text-transparent">
+              Before They Reach You.
+            </span>
           </h1>
 
+          {/* Subtitle */}
           <p
-            className="text-lg mb-8 max-w-lg leading-relaxed"
+            className="text-lg mb-8 max-w-xl leading-relaxed animate-fade-in-up delay-200"
             style={{ color: 'var(--color-text-secondary)' }}
           >
-            Paste text or a URL from any social media post and receive an explainable risk
-            assessment in seconds — not just "Scam" or "Not Scam."
+            Paste suspicious social media pitches, Telegram messages, or investment URLs.
+            Receive an <strong>explainable AI risk assessment (0–100)</strong> with verbatim evidence in seconds.
           </p>
 
-          {/* Trust indicators */}
-          <div className="space-y-2 mb-8">
+          {/* Trust points */}
+          <div className="space-y-3 mb-9 animate-fade-in-up delay-300">
             {[
-              'Explainable results — see exactly what signals were found',
-              'Risk scoring, not guaranteed detection',
-              'No outbound requests made to analyzed URLs',
+              'Explainable AI — verbatim quotes showing exactly why signals were flagged',
+              'Multi-signal extraction across 9 Text and 10 URL indicator categories',
+              'Zero outbound HTTP requests to analyzed links (Strict SSRF protection)',
             ].map((item) => (
-              <div key={item} className="flex items-center gap-2 text-sm" style={{ color: 'var(--color-text-muted)' }}>
-                <CheckCircle size={16} style={{ color: 'var(--color-risk-low)', flexShrink: 0 }} aria-hidden="true" />
-                {item}
+              <div key={item} className="flex items-center gap-3 text-sm" style={{ color: 'var(--color-text-secondary)' }}>
+                <div className="w-4 h-4 rounded-full flex items-center justify-center bg-emerald-500/20 border border-emerald-500/40 flex-shrink-0">
+                  <CheckCircle size={12} style={{ color: 'var(--color-risk-low)' }} aria-hidden="true" />
+                </div>
+                <span>{item}</span>
               </div>
             ))}
           </div>
 
-          <div className="flex flex-wrap gap-3">
+          {/* CTA Buttons */}
+          <div className="flex flex-wrap items-center gap-4 animate-fade-in-up delay-400">
             <Link
               to="/register"
-              className="inline-flex items-center gap-2 text-base font-semibold px-8 py-3.5 rounded-full transition-all"
-              style={{ background: 'var(--color-brand)', color: '#ffffff' }}
+              className="btn-primary inline-flex items-center gap-2.5 text-base font-semibold px-8 py-3.5 rounded-xl transition-all"
+              style={{
+                background: 'linear-gradient(135deg, #2563EB 0%, #1D4ED8 100%)',
+                color: '#ffffff',
+                boxShadow: '0 4px 20px rgba(37, 99, 235, 0.4)',
+              }}
             >
-              Start Scanning
+              <span>Analyze Now</span>
               <ArrowRight size={18} aria-hidden="true" />
             </Link>
             <button
               onClick={scroll}
-              className="inline-flex items-center gap-2 text-base font-medium px-6 py-3.5 rounded-full border transition-colors"
+              className="inline-flex items-center gap-2 text-base font-medium px-6 py-3.5 rounded-xl border transition-all hover:bg-slate-800/40 hover:text-white"
               style={{
                 color: 'var(--color-text-secondary)',
                 borderColor: 'var(--color-border)',
               }}
             >
-              How It Works ↓
+              <span>How It Works</span>
+              <span>↓</span>
             </button>
           </div>
         </div>
 
-        {/* Shield Visual */}
-        <div className="flex-shrink-0 flex items-center justify-center w-64 h-64 md:w-80 md:h-80">
+        {/* Right Interactive Cyber Shield Visual */}
+        <div className="flex-shrink-0 relative flex items-center justify-center w-72 h-72 sm:w-96 sm:h-96 animate-fade-in-scale delay-200">
+          {/* Animated decorative rings */}
           <div
-            className="relative flex items-center justify-center w-full h-full rounded-3xl"
-            style={{ background: 'var(--color-brand-subtle)', border: '1px solid var(--color-border)' }}
+            className="absolute inset-0 rounded-full border border-blue-500/20 animate-pulse-glow"
+            style={{ animationDuration: '4s' }}
+          />
+          <div
+            className="absolute inset-8 rounded-full border border-sky-400/15"
+            style={{ animation: 'spin 25s linear infinite' }}
+          />
+
+          {/* Glowing central container */}
+          <div
+            className="relative flex items-center justify-center w-64 h-64 sm:w-80 sm:h-80 rounded-3xl border card-interactive"
+            style={{
+              background: 'linear-gradient(135deg, rgba(13, 26, 58, 0.7) 0%, rgba(7, 11, 20, 0.85) 100%)',
+              borderColor: 'rgba(30, 58, 95, 0.8)',
+              boxShadow: '0 20px 50px rgba(0, 0, 0, 0.6), inset 0 0 30px rgba(37, 99, 235, 0.15)',
+            }}
           >
-            {/* Outer glow ring */}
-            <div
-              className="absolute inset-4 rounded-2xl opacity-20"
-              style={{ background: 'var(--color-brand)', filter: 'blur(24px)' }}
-            />
-            <ShieldCheck
-              size={120}
-              style={{ color: 'var(--color-brand)', position: 'relative', zIndex: 1 }}
-              aria-hidden="true"
-            />
-            {/* Floating badges */}
-            <div
-              className="absolute top-5 right-5 flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-bold"
-              style={{ background: 'var(--color-risk-low-bg)', color: 'var(--color-risk-low)', border: '1px solid var(--color-risk-low)' }}
-              aria-label="LOW Risk indicator example"
-            >
-              <CheckCircle size={10} aria-hidden="true" /> LOW
+            {/* Center Shield Icon */}
+            <div className="relative p-6 rounded-2xl bg-blue-950/40 border border-blue-800/40 animate-float">
+              <ShieldCheck
+                size={84}
+                style={{ color: 'var(--color-brand)', filter: 'drop-shadow(0 0 20px rgba(37, 99, 235, 0.6))' }}
+                aria-hidden="true"
+              />
             </div>
+
+            {/* Floating Live Signal Chips */}
             <div
-              className="absolute bottom-8 left-4 flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-bold"
-              style={{ background: 'var(--color-risk-critical-bg)', color: 'var(--color-risk-critical)', border: '1px solid var(--color-risk-critical)' }}
-              aria-label="CRITICAL Risk indicator example"
+              className="absolute -top-3 -right-3 flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-bold border animate-float"
+              style={{
+                background: 'rgba(5, 46, 22, 0.9)',
+                color: 'var(--color-risk-low)',
+                borderColor: 'rgba(52, 211, 153, 0.4)',
+                boxShadow: '0 4px 15px rgba(52, 211, 153, 0.25)',
+                animationDelay: '1s',
+              }}
             >
-              <AlertTriangle size={10} aria-hidden="true" /> CRITICAL
+              <Activity size={12} className="animate-pulse" aria-hidden="true" />
+              <span>9 Text Signals Active</span>
+            </div>
+
+            <div
+              className="absolute -bottom-3 -left-3 flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-bold border animate-float"
+              style={{
+                background: 'rgba(45, 10, 10, 0.9)',
+                color: 'var(--color-risk-critical)',
+                borderColor: 'rgba(248, 113, 113, 0.4)',
+                boxShadow: '0 4px 15px rgba(248, 113, 113, 0.25)',
+                animationDelay: '2.5s',
+              }}
+            >
+              <Zap size={12} aria-hidden="true" />
+              <span>Critical Threat Block</span>
             </div>
           </div>
         </div>
@@ -189,18 +235,21 @@ function Hero({ howItWorksRef }: { howItWorksRef: React.RefObject<HTMLElement | 
 const HOW_STEPS = [
   {
     num: '01',
-    title: 'Submit',
-    desc: 'Paste text or a URL from any social media post, Telegram message, or investment promotion.',
+    title: 'Submit Content',
+    desc: 'Paste suspicious text, investment pitch, or website URL from any platform (Telegram, WhatsApp, Instagram).',
+    icon: FileText,
   },
   {
     num: '02',
-    title: 'Analyze',
-    desc: 'Our AI extracts risk signals from 9 text indicators and 10 URL signals, computing a risk score.',
+    title: 'AI Signal Extraction',
+    desc: 'Our engine extracts lexical patterns across 9 text risk categories and 10 structural URL indicators.',
+    icon: Sparkles,
   },
   {
     num: '03',
-    title: 'Understand',
-    desc: 'See exactly what was detected, why each signal is suspicious, and what action to take.',
+    title: 'Explainable Findings',
+    desc: 'View your 0–100 risk score, verbatim evidence highlights, and actionable safety recommendations.',
+    icon: ShieldCheck,
   },
 ];
 
@@ -209,49 +258,51 @@ function HowItWorks({ sectionRef }: { sectionRef: React.RefObject<HTMLElement | 
     <section
       ref={sectionRef as React.RefObject<HTMLElement>}
       id="how-it-works"
-      className="py-20 px-6 md:px-12"
-      style={{ background: 'var(--color-bg-elevated)' }}
+      className="py-24 px-6 md:px-12 relative border-t"
+      style={{
+        background: 'rgba(13, 19, 33, 0.6)',
+        borderColor: 'var(--color-border)',
+      }}
     >
       <div className="max-w-5xl mx-auto">
-        <div className="text-center mb-14">
-          <h2 className="text-3xl font-bold mb-3" style={{ color: 'var(--color-text-primary)' }}>
-            How It Works
+        <div className="text-center mb-16">
+          <h2 className="text-3xl sm:text-4xl font-bold mb-3 tracking-tight" style={{ color: 'var(--color-text-primary)' }}>
+            How ScamShield AI Works
           </h2>
-          <p className="text-base" style={{ color: 'var(--color-text-muted)' }}>
-            Three steps from suspicious content to actionable insight.
+          <p className="text-base max-w-lg mx-auto" style={{ color: 'var(--color-text-muted)' }}>
+            Transparent three-step pipeline from raw input to explainable risk report.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 relative">
-          {HOW_STEPS.map((step, i) => (
-            <div key={step.num} className="relative text-center">
-              {/* Connector line */}
-              {i < HOW_STEPS.length - 1 && (
-                <div
-                  className="hidden md:block absolute top-10 left-1/2 w-full h-px"
-                  style={{ background: 'var(--color-border)', transform: 'translateX(50%)' }}
-                  aria-hidden="true"
-                />
-              )}
-              {/* Step number */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          {HOW_STEPS.map((step) => {
+            const Icon = step.icon;
+            return (
               <div
-                className="inline-flex items-center justify-center w-20 h-20 rounded-2xl text-3xl font-bold mb-5 mx-auto"
+                key={step.num}
+                className="relative p-7 rounded-2xl border card-interactive text-left"
                 style={{
-                  background: 'var(--color-brand-subtle)',
-                  color: 'var(--color-brand)',
-                  border: '1px solid var(--color-border)',
+                  background: 'var(--color-surface)',
+                  borderColor: 'var(--color-border)',
                 }}
               >
-                {step.num}
+                <div className="flex items-center justify-between mb-5">
+                  <div className="w-12 h-12 rounded-xl flex items-center justify-center bg-blue-950/60 border border-blue-800/40 text-sky-400">
+                    <Icon size={22} aria-hidden="true" />
+                  </div>
+                  <span className="text-2xl font-bold font-mono opacity-30 text-slate-400">
+                    {step.num}
+                  </span>
+                </div>
+                <h3 className="text-lg font-semibold mb-2" style={{ color: 'var(--color-text-primary)' }}>
+                  {step.title}
+                </h3>
+                <p className="text-sm leading-relaxed" style={{ color: 'var(--color-text-secondary)' }}>
+                  {step.desc}
+                </p>
               </div>
-              <h3 className="text-xl font-semibold mb-2" style={{ color: 'var(--color-text-primary)' }}>
-                {step.title}
-              </h3>
-              <p className="text-sm leading-relaxed" style={{ color: 'var(--color-text-secondary)' }}>
-                {step.desc}
-              </p>
-            </div>
-          ))}
+            );
+          })}
         </div>
       </div>
     </section>
@@ -260,38 +311,40 @@ function HowItWorks({ sectionRef }: { sectionRef: React.RefObject<HTMLElement | 
 
 /* ── Features Grid ────────────────────────────────────────────────────────── */
 const FEATURES = [
-  { icon: FileText,      title: 'Text Analysis',      desc: 'Analyze investment promotion text for 9 categories of risk indicators including fake authority, urgency tactics, and crypto solicitation.' },
-  { icon: Link2,         title: 'URL Analysis',        desc: 'Inspect URLs for suspicious structural and lexical signals including IP-based addresses, misleading keywords, and suspicious TLDs.' },
-  { icon: Layers,        title: 'Combined Analysis',   desc: 'Submit both text and URL for a comprehensive risk picture with fused scoring across all detected signals.' },
-  { icon: MessageSquare, title: 'Explainable Results', desc: 'Every flagged signal shows verbatim evidence from your input, why it matters, and what to do next.' },
-  { icon: History,       title: 'Scan History',        desc: 'Review all your past scans and access detailed results anytime. Filter by risk level.' },
-  { icon: ShieldCheck,   title: 'Privacy First',       desc: 'Your data is yours — delete any scan at any time. No outbound requests made to analyzed URLs.' },
+  { icon: FileText,      title: 'Text Signal Analysis',  desc: 'Detects 9 text risk categories including guaranteed return claims, urgency tactics, and crypto solicitation.' },
+  { icon: Link2,         title: 'URL Security Scan',     desc: 'Inspects URLs for IP hostnames, high-abuse TLDs, punycode spoofing, and suspicious query parameters.' },
+  { icon: Layers,        title: 'Combined Fused Mode',   desc: 'Fuses text and URL analysis with a Critical Ceiling Governor for holistic threat evaluation.' },
+  { icon: MessageSquare, title: 'Explainable AI (XAI)',  desc: 'Highlights verbatim evidence quotes directly from your input so you understand why content is risky.' },
+  { icon: History,       title: 'Scan Audit History',    desc: 'Review past scans with risk-level filtering and permanent record deletion on demand.' },
+  { icon: Lock,          title: 'Zero Outbound Requests',desc: 'Zero outbound connections made to analyzed URLs, completely neutralizing SSRF attack vectors.' },
 ];
 
 function FeaturesGrid() {
   return (
-    <section className="py-20 px-6 md:px-12" style={{ background: 'var(--color-bg-base)' }}>
+    <section className="py-24 px-6 md:px-12 relative border-t" style={{ borderColor: 'var(--color-border)' }}>
       <div className="max-w-5xl mx-auto">
-        <div className="text-center mb-14">
-          <h2 className="text-3xl font-bold mb-3" style={{ color: 'var(--color-text-primary)' }}>
-            Core Capabilities
+        <div className="text-center mb-16">
+          <h2 className="text-3xl sm:text-4xl font-bold mb-3 tracking-tight" style={{ color: 'var(--color-text-primary)' }}>
+            Enterprise Cybersecurity Capabilities
           </h2>
-          <p className="text-base" style={{ color: 'var(--color-text-muted)' }}>
-            Multi-signal detection with explainable AI output.
+          <p className="text-base max-w-lg mx-auto" style={{ color: 'var(--color-text-muted)' }}>
+            Engineered with zero-trust architecture and explainable threat modeling.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {FEATURES.map(({ icon: Icon, title, desc }) => (
             <div
               key={title}
-              className="p-6 rounded-xl border transition-all"
+              className="p-6 rounded-2xl border card-interactive"
               style={{
                 background: 'var(--color-surface)',
                 borderColor: 'var(--color-border)',
               }}
             >
-              <Icon size={32} style={{ color: 'var(--color-accent)' }} className="mb-4" aria-hidden="true" />
+              <div className="w-11 h-11 rounded-xl flex items-center justify-center bg-blue-950/60 border border-blue-800/40 text-sky-400 mb-4">
+                <Icon size={20} aria-hidden="true" />
+              </div>
               <h3 className="text-base font-semibold mb-2" style={{ color: 'var(--color-text-primary)' }}>
                 {title}
               </h3>
@@ -308,27 +361,24 @@ function FeaturesGrid() {
 
 /* ── Security Strip ───────────────────────────────────────────────────────── */
 const SECURITY_ITEMS = [
-  { icon: Lock,      text: 'Your inputs are not stored beyond your account' },
-  { icon: EyeOff,    text: 'No tracking or behavioral profiling' },
-  { icon: ShieldCheck, text: 'No outbound requests made to submitted URLs in analysis' },
+  { icon: Lock,        text: 'User data isolated with strict IDOR access control' },
+  { icon: EyeOff,      text: 'Zero tracking or external behavioral profiling' },
+  { icon: ShieldCheck, text: 'Zero outbound network requests made to analyzed URLs' },
 ];
 
 function SecurityStrip() {
   return (
     <section
-      className="py-16 px-6 md:px-12 border-y"
-      style={{ background: 'var(--color-bg-elevated)', borderColor: 'var(--color-border)' }}
+      className="py-14 px-6 md:px-12 border-y relative"
+      style={{ background: 'rgba(13, 19, 33, 0.7)', borderColor: 'var(--color-border)' }}
     >
-      <div className="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8">
+      <div className="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-6">
         {SECURITY_ITEMS.map(({ icon: Icon, text }) => (
-          <div key={text} className="flex items-start gap-4">
-            <div
-              className="p-2.5 rounded-lg flex-shrink-0"
-              style={{ background: 'var(--color-brand-subtle)' }}
-            >
-              <Icon size={20} style={{ color: 'var(--color-brand)' }} aria-hidden="true" />
+          <div key={text} className="flex items-center gap-3.5 p-4 rounded-xl border bg-slate-900/40 border-slate-800/60">
+            <div className="p-2.5 rounded-lg bg-blue-950/60 border border-blue-800/40 text-sky-400 flex-shrink-0">
+              <Icon size={18} aria-hidden="true" />
             </div>
-            <p className="text-sm leading-relaxed" style={{ color: 'var(--color-text-secondary)' }}>
+            <p className="text-sm leading-snug" style={{ color: 'var(--color-text-secondary)' }}>
               {text}
             </p>
           </div>
@@ -341,36 +391,42 @@ function SecurityStrip() {
 /* ── CTA Banner ───────────────────────────────────────────────────────────── */
 function CTABanner() {
   return (
-    <section className="py-20 px-6 md:px-12" style={{ background: 'var(--color-bg-base)' }}>
+    <section className="py-24 px-6 md:px-12 relative">
       <div
-        className="max-w-3xl mx-auto text-center p-12 rounded-2xl border"
+        className="max-w-4xl mx-auto text-center p-12 md:p-16 rounded-3xl border relative overflow-hidden"
         style={{
-          background: 'var(--color-brand-subtle)',
-          borderColor: 'var(--color-border)',
+          background: 'linear-gradient(135deg, rgba(13, 26, 58, 0.8) 0%, rgba(7, 11, 20, 0.95) 100%)',
+          borderColor: 'rgba(37, 99, 235, 0.4)',
+          boxShadow: '0 20px 60px rgba(0, 0, 0, 0.6), 0 0 30px rgba(37, 99, 235, 0.15)',
         }}
       >
-        <h2 className="text-3xl font-bold mb-4" style={{ color: 'var(--color-text-primary)' }}>
-          Ready to scan a suspicious investment post?
-        </h2>
-        <p className="text-base mb-8" style={{ color: 'var(--color-text-secondary)' }}>
-          Create a free account and start analyzing content for risk signals in seconds.
-        </p>
-        <div className="flex flex-wrap justify-center gap-3">
-          <Link
-            to="/register"
-            className="inline-flex items-center gap-2 text-base font-semibold px-8 py-3.5 rounded-full transition-all"
-            style={{ background: 'var(--color-brand)', color: '#ffffff' }}
-          >
-            Create Free Account
-            <ArrowRight size={18} aria-hidden="true" />
-          </Link>
-          <Link
-            to="/login"
-            className="inline-flex items-center gap-2 text-base font-medium px-8 py-3.5 rounded-full border transition-colors"
-            style={{ color: 'var(--color-text-secondary)', borderColor: 'var(--color-border)' }}
-          >
-            Sign In
-          </Link>
+        <div className="relative z-10">
+          <h2 className="text-3xl sm:text-4xl font-bold mb-4 tracking-tight" style={{ color: 'var(--color-text-primary)' }}>
+            Scan a Suspicious Investment Post Now
+          </h2>
+          <p className="text-base mb-8 max-w-xl mx-auto leading-relaxed" style={{ color: 'var(--color-text-secondary)' }}>
+            Get instant risk scoring, verbatim evidence detection, and guidance before committing any capital.
+          </p>
+          <div className="flex flex-wrap justify-center items-center gap-4">
+            <Link
+              to="/register"
+              className="btn-primary inline-flex items-center gap-2 text-base font-semibold px-8 py-3.5 rounded-xl transition-all"
+              style={{
+                background: 'linear-gradient(135deg, #2563EB 0%, #1D4ED8 100%)',
+                color: '#ffffff',
+              }}
+            >
+              <span>Create Free Account</span>
+              <ArrowRight size={18} aria-hidden="true" />
+            </Link>
+            <Link
+              to="/login"
+              className="inline-flex items-center gap-2 text-base font-medium px-7 py-3.5 rounded-xl border transition-all hover:bg-slate-800/40"
+              style={{ color: 'var(--color-text-secondary)', borderColor: 'var(--color-border)' }}
+            >
+              Sign In
+            </Link>
+          </div>
         </div>
       </div>
     </section>
@@ -381,81 +437,60 @@ function CTABanner() {
 function Footer() {
   return (
     <footer
-      className="border-t px-6 md:px-12 py-10"
+      className="border-t px-6 md:px-12 py-12 relative z-10"
       style={{ background: 'var(--color-bg-elevated)', borderColor: 'var(--color-border)' }}
     >
       <div className="max-w-5xl mx-auto">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
-          {/* Brand */}
           <div>
-            <div className="flex items-center gap-2 mb-3">
-              <ShieldCheck size={20} style={{ color: 'var(--color-brand)' }} aria-hidden="true" />
-              <span className="font-bold text-sm" style={{ color: 'var(--color-text-primary)' }}>
+            <div className="flex items-center gap-2.5 mb-3">
+              <ShieldCheck size={22} style={{ color: 'var(--color-brand)' }} aria-hidden="true" />
+              <span className="font-bold text-base tracking-tight" style={{ color: 'var(--color-text-primary)' }}>
                 ScamShield AI
               </span>
             </div>
-            <p className="text-xs" style={{ color: 'var(--color-text-muted)' }}>
-              Detect. Understand. Stay Safe.
+            <p className="text-xs leading-relaxed" style={{ color: 'var(--color-text-muted)' }}>
+              Explainable AI-powered investment and trading scam detection system. Built for Cyber Security Hackathon 2026.
             </p>
           </div>
-          {/* Links */}
           <div>
-            <p className="text-xs font-semibold mb-3 uppercase tracking-wider" style={{ color: 'var(--color-text-muted)' }}>
-              Links
-            </p>
+            <p className="text-xs font-semibold mb-3 uppercase tracking-wider text-slate-400">Navigation</p>
             {[
               { to: '/dashboard', label: 'Dashboard' },
-              { to: '/scanner', label: 'Scanner' },
-              { to: '/history', label: 'History' },
+              { to: '/scanner',   label: 'Scanner' },
+              { to: '/history',   label: 'Scan History' },
             ].map(({ to, label }) => (
-              <Link
-                key={to}
-                to={to}
-                className="block text-sm mb-1.5 transition-colors"
-                style={{ color: 'var(--color-text-muted)' }}
-              >
+              <Link key={to} to={to} className="block text-sm mb-2 text-slate-400 hover:text-white transition-colors">
                 {label}
               </Link>
             ))}
           </div>
-          {/* Legal */}
           <div>
-            <p className="text-xs font-semibold mb-3 uppercase tracking-wider" style={{ color: 'var(--color-text-muted)' }}>
-              Legal
-            </p>
-            <Link
-              to="/about"
-              className="block text-sm mb-1.5"
-              style={{ color: 'var(--color-text-muted)' }}
-            >
-              About &amp; Methodology
+            <p className="text-xs font-semibold mb-3 uppercase tracking-wider text-slate-400">Legal &amp; Trust</p>
+            <Link to="/about" className="block text-sm mb-2 text-slate-400 hover:text-white transition-colors">
+              Methodology &amp; Disclaimers
             </Link>
-            <p className="text-xs leading-relaxed mt-3" style={{ color: 'var(--color-text-disabled)' }}>
-              Results are probabilistic risk assessments, not fraud determinations.
+            <p className="text-xs leading-relaxed text-slate-500 mt-2">
+              Results are probabilistic risk indicators based on detected signals and do not constitute financial advice.
             </p>
           </div>
         </div>
 
-        {/* Disclaimer */}
-        <div
-          className="border-t pt-6 text-xs leading-relaxed"
-          style={{ borderColor: 'var(--color-border)', color: 'var(--color-text-muted)' }}
-        >
-          ScamShield AI provides probabilistic risk assessments based on detected signals in submitted
-          content. Results are not guaranteed fraud determinations and do not constitute financial or
-          legal advice. Always independently verify investment opportunities.
+        <div className="border-t pt-6 text-xs leading-relaxed text-slate-500" style={{ borderColor: 'var(--color-border)' }}>
+          © 2026 ScamShield AI. All rights reserved. Built with zero-trust AI architecture.
         </div>
       </div>
     </footer>
   );
 }
 
-/* ── Page ─────────────────────────────────────────────────────────────────── */
+/* ── Main Landing Page ────────────────────────────────────────────────────── */
 export function LandingPage() {
   const howItWorksRef = useRef<HTMLElement>(null);
 
   return (
-    <div style={{ background: 'var(--color-bg-base)' }}>
+    <div className="relative min-h-screen" style={{ background: 'var(--color-bg-base)' }}>
+      <CyberBackground />
       <Navbar />
       <Hero howItWorksRef={howItWorksRef} />
       <HowItWorks sectionRef={howItWorksRef} />

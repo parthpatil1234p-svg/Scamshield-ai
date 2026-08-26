@@ -1,9 +1,9 @@
 @import "tailwindcss";
 
 /* ─────────────────────────────────────────────────────────────────────────────
-   ScamShield AI — Global Design System
+   ScamShield AI — Global Design System & Animations
    Source: docs/UI-UX-DESIGN.md
-   All hex values are exact per the specification. DO NOT modify.
+   Exact color tokens, GPU-accelerated cyber animations, and micro-interactions.
    ─────────────────────────────────────────────────────────────────────────── */
 
 @theme {
@@ -33,7 +33,7 @@
   --color-risk-high:       #FB923C;
   --color-risk-critical:   #F87171;
 
-  /* Risk — background (very subtle tint) */
+  /* Risk — background (subtle tints) */
   --color-risk-low-bg:     #052E16;
   --color-risk-medium-bg:  #2D1B00;
   --color-risk-high-bg:    #2C1008;
@@ -44,8 +44,8 @@
   --color-error:           #EF4444;
   --color-info:            #38BDF8;
 
-  /* Font */
-  --font-sans: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  /* Fonts */
+  --font-sans: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   --font-mono: 'JetBrains Mono', 'Fira Code', Consolas, monospace;
 }
 
@@ -63,6 +63,7 @@ body {
   background-color: var(--color-bg-base);
   color: var(--color-text-primary);
   min-height: 100dvh;
+  overflow-x: hidden;
 }
 
 /* ─── Focus visible ───────────────────────────────────────────────────────── */
@@ -72,50 +73,124 @@ body {
 }
 
 /* ─── Scrollbar ───────────────────────────────────────────────────────────── */
-::-webkit-scrollbar { width: 5px; height: 5px; }
-::-webkit-scrollbar-track { background: var(--color-bg-elevated); }
-::-webkit-scrollbar-thumb { background: var(--color-border); border-radius: 3px; }
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: var(--color-bg-base); }
+::-webkit-scrollbar-thumb { background: var(--color-border); border-radius: 4px; }
 ::-webkit-scrollbar-thumb:hover { background: var(--color-text-muted); }
 
-/* ─── Custom utilities ────────────────────────────────────────────────────── */
+/* ─── Animations & Keyframes ──────────────────────────────────────────────── */
 
-/* Loading spinner keyframe */
-@keyframes spin { to { transform: rotate(360deg); } }
-.animate-spin-fast { animation: spin 0.7s linear infinite; }
-
-/* Fade-in */
 @keyframes fadeIn {
-  from { opacity: 0; transform: translateY(8px); }
+  from { opacity: 0; transform: translateY(10px); }
   to   { opacity: 1; transform: translateY(0); }
 }
-.animate-fade-in { animation: fadeIn 0.3s ease-out both; }
 
-/* Pulse skeleton */
-@keyframes skeletonPulse {
-  0%, 100% { opacity: 0.4; }
-  50%       { opacity: 0.8; }
-}
-.skeleton { animation: skeletonPulse 1.5s ease-in-out infinite; background: var(--color-surface-raised); border-radius: 6px; }
-
-/* Analysis progress step animation */
-@keyframes stepBounce {
-  0%, 100% { transform: scale(1); }
-  50%       { transform: scale(1.05); }
-}
-.animate-step { animation: stepBounce 0.6s ease-in-out; }
-
-/* Gradient hero background */
-.hero-bg {
-  background: radial-gradient(ellipse 80% 50% at 50% 0%, #0D1A3A 0%, #070B14 100%);
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
 }
 
-/* Risk score ring gradient */
-.ring-glow-low      { filter: drop-shadow(0 0 8px #34D39950); }
-.ring-glow-medium   { filter: drop-shadow(0 0 8px #FBBF2450); }
-.ring-glow-high     { filter: drop-shadow(0 0 8px #FB923C50); }
-.ring-glow-critical { filter: drop-shadow(0 0 8px #F8717150); }
+@keyframes fadeInScale {
+  from { opacity: 0; transform: scale(0.96); }
+  to   { opacity: 1; transform: scale(1); }
+}
 
-/* Analysis step indicator states */
-.step-waiting  { color: var(--color-text-muted); }
-.step-active   { color: var(--color-accent); }
-.step-done     { color: var(--color-risk-low); }
+@keyframes pulseGlow {
+  0%, 100% { opacity: 0.4; transform: scale(1); }
+  50%       { opacity: 0.8; transform: scale(1.03); }
+}
+
+@keyframes radarSweep {
+  0%   { transform: translateY(-100%); opacity: 0; }
+  50%  { opacity: 0.5; }
+  100% { transform: translateY(200%); opacity: 0; }
+}
+
+@keyframes floatSlow {
+  0%, 100% { transform: translateY(0px); }
+  50%       { transform: translateY(-8px); }
+}
+
+@keyframes spinFast {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes shimmer {
+  0%   { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+/* ─── Utility Classes ─────────────────────────────────────────────────────── */
+.animate-fade-in       { animation: fadeIn 0.4s cubic-bezier(0.16, 1, 0.3, 1) both; }
+.animate-fade-in-up    { animation: fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) both; }
+.animate-fade-in-scale { animation: fadeInScale 0.4s cubic-bezier(0.16, 1, 0.3, 1) both; }
+.animate-pulse-glow    { animation: pulseGlow 3s ease-in-out infinite; }
+.animate-float         { animation: floatSlow 6s ease-in-out infinite; }
+.animate-spin-fast     { animation: spinFast 0.7s linear infinite; }
+
+/* Stagger Delays */
+.delay-100 { animation-delay: 100ms; }
+.delay-200 { animation-delay: 200ms; }
+.delay-300 { animation-delay: 300ms; }
+.delay-400 { animation-delay: 400ms; }
+.delay-500 { animation-delay: 500ms; }
+.delay-600 { animation-delay: 600ms; }
+
+/* Cyber Background Grid */
+.cyber-grid {
+  background-size: 40px 40px;
+  background-image: 
+    linear-gradient(to right, rgba(30, 45, 69, 0.25) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(30, 45, 69, 0.25) 1px, transparent 1px);
+}
+
+.hero-radial-glow {
+  background: radial-gradient(circle at 50% 15%, rgba(37, 99, 235, 0.18) 0%, rgba(56, 189, 248, 0.05) 35%, transparent 70%);
+}
+
+/* Card Hover Micro-Interactions */
+.card-interactive {
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.25s ease, box-shadow 0.25s ease;
+  will-change: transform;
+}
+.card-interactive:hover {
+  transform: translateY(-3px);
+  border-color: rgba(56, 189, 248, 0.4);
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.5), 0 0 15px -3px rgba(37, 99, 235, 0.15);
+}
+
+/* Button Hover Micro-Interactions */
+.btn-primary {
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: transform, box-shadow;
+}
+.btn-primary:hover:not(:disabled) {
+  transform: translateY(-1.5px);
+  box-shadow: 0 4px 18px rgba(37, 99, 235, 0.4);
+}
+.btn-primary:active:not(:disabled) {
+  transform: translateY(0px);
+}
+
+/* Glow Rings for Risk Gauge */
+.ring-glow-low      { filter: drop-shadow(0 0 12px rgba(52, 211, 153, 0.45)); }
+.ring-glow-medium   { filter: drop-shadow(0 0 12px rgba(251, 191, 36, 0.45)); }
+.ring-glow-high     { filter: drop-shadow(0 0 12px rgba(251, 146, 60, 0.5)); }
+.ring-glow-critical { filter: drop-shadow(0 0 14px rgba(248, 113, 113, 0.6)); }
+
+/* Skeleton */
+.skeleton {
+  background: linear-gradient(90deg, var(--color-surface) 25%, var(--color-surface-raised) 50%, var(--color-surface) 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: 8px;
+}
+
+/* Reduced Motion Compliance */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

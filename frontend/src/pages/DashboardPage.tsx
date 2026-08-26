@@ -1,73 +1,62 @@
 /**
  * src/pages/DashboardPage.tsx
- * Dashboard per UI-UX-DESIGN.md §16.
- * Stats grid + recent scans feed + new scan CTA.
+ * Interactive Dashboard with cyber stat cards, activity analytics, and recent scans.
  */
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import {
-  ScanSearch, TrendingUp, ShieldAlert, ShieldCheck, AlertTriangle,
-  CheckCircle, AlertOctagon, SearchX,
+  ScanSearch,
+  TrendingUp,
+  ShieldAlert,
+  ShieldCheck,
+  AlertTriangle,
+  CheckCircle,
+  AlertOctagon,
+  SearchX,
+  ArrowRight,
+  Zap,
 } from 'lucide-react';
 import { scansApi } from '../api/client';
 import type { DashboardStats, ScanSummaryItem, RiskLevel } from '../types';
 import { useAuth } from '../context/AuthContext';
 
-const RISK_FG: Record<RiskLevel, string> = {
-  LOW:      'var(--color-risk-low)',
-  MEDIUM:   'var(--color-risk-medium)',
-  HIGH:     'var(--color-risk-high)',
-  CRITICAL: 'var(--color-risk-critical)',
-};
-const RISK_BG: Record<RiskLevel, string> = {
-  LOW:      'var(--color-risk-low-bg)',
-  MEDIUM:   'var(--color-risk-medium-bg)',
-  HIGH:     'var(--color-risk-high-bg)',
-  CRITICAL: 'var(--color-risk-critical-bg)',
-};
-const RISK_ICON: Record<RiskLevel, React.ElementType> = {
-  LOW: CheckCircle, MEDIUM: AlertTriangle, HIGH: AlertOctagon, CRITICAL: ShieldAlert,
+const RISK_CONFIG: Record<RiskLevel, { fg: string; bg: string; icon: React.ElementType }> = {
+  LOW:      { fg: 'var(--color-risk-low)',      bg: 'rgba(5, 46, 22, 0.7)',  icon: CheckCircle },
+  MEDIUM:   { fg: 'var(--color-risk-medium)',   bg: 'rgba(45, 27, 0, 0.7)',  icon: AlertTriangle },
+  HIGH:     { fg: 'var(--color-risk-high)',     bg: 'rgba(44, 16, 8, 0.7)',  icon: AlertOctagon },
+  CRITICAL: { fg: 'var(--color-risk-critical)', bg: 'rgba(45, 10, 10, 0.7)', icon: ShieldAlert },
 };
 
-function RiskChip({ level, score }: { level: RiskLevel; score: number }) {
-  const Icon = RISK_ICON[level];
-  return (
-    <span
-      className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-bold"
-      style={{ color: RISK_FG[level], background: RISK_BG[level] }}
-    >
-      <Icon size={11} aria-hidden="true" />
-      {level} · {score}
-    </span>
-  );
-}
-
-interface StatCardProps {
+function StatCard({
+  label,
+  value,
+  icon: Icon,
+  accentColor,
+  delayIndex,
+}: {
   label: string;
   value: number;
   icon: React.ElementType;
-  fg: string;
-  bg: string;
-  accent: string;
-}
-function StatCard({ label, value, icon: Icon, fg, bg, accent }: StatCardProps) {
+  accentColor: string;
+  delayIndex: number;
+}) {
   return (
     <div
-      className="rounded-xl border p-5"
+      className="rounded-2xl border p-5 card-interactive animate-fade-in-up"
       style={{
         background: 'var(--color-surface)',
         borderColor: 'var(--color-border)',
-        borderLeftColor: accent,
-        borderLeftWidth: '3px',
+        borderLeft: `3px solid ${accentColor}`,
+        animationDelay: `${delayIndex * 100}ms`,
       }}
     >
       <div className="flex items-center justify-between mb-3">
-        <span className="text-sm" style={{ color: 'var(--color-text-muted)' }}>{label}</span>
-        <div className="p-2 rounded-lg" style={{ background: bg }}>
-          <Icon size={16} style={{ color: fg }} aria-hidden="true" />
+        <span className="text-xs font-semibold text-slate-400 uppercase tracking-wider">{label}</span>
+        <div className="p-2 rounded-xl bg-slate-900/60 border border-slate-800" style={{ color: accentColor }}>
+          <Icon size={16} aria-hidden="true" />
         </div>
       </div>
-      <p className="text-2xl font-bold" style={{ color: 'var(--color-text-primary)' }}>
+      <p className="text-3xl font-extrabold font-mono text-white">
         {value.toLocaleString()}
       </p>
     </div>
@@ -92,140 +81,155 @@ export function DashboardPage() {
           setStats(statsData);
           setRecentScans(historyData.data);
         }
-      } catch { /* show zeros */ }
+      } catch { /* graceful fallback */ }
       finally { if (!cancelled) setIsLoading(false); }
     })();
     return () => { cancelled = true; };
   }, []);
 
-  const firstName = user?.email?.split('@')[0] ?? 'there';
+  const displayName = user?.email?.split('@')[0] ?? 'User';
 
   return (
     <div className="p-6 md:p-10 max-w-5xl mx-auto animate-fade-in">
-      {/* Header */}
-      <div className="mb-8">
-        <h1 className="text-2xl font-bold" style={{ color: 'var(--color-text-primary)' }}>
-          Welcome back, {firstName}!
-        </h1>
-        <p className="text-sm mt-1" style={{ color: 'var(--color-text-muted)' }}>
-          Your scan activity overview — {user?.email}
-        </p>
+      {/* Welcome Banner */}
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8">
+        <div>
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-blue-950/60 border border-blue-800/40 text-sky-400 mb-2">
+            <Zap size={13} aria-hidden="true" />
+            <span>Threat Intelligence Hub</span>
+          </div>
+          <h1 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-white">
+            Welcome, {displayName}
+          </h1>
+          <p className="text-xs sm:text-sm text-slate-400 mt-1 font-mono">
+            {user?.email}
+          </p>
+        </div>
+
+        <Link
+          to="/scanner"
+          className="btn-primary inline-flex items-center gap-2 px-6 py-3.5 rounded-2xl text-sm font-bold text-white transition-all self-start sm:self-auto"
+          style={{
+            background: 'linear-gradient(135deg, #2563EB 0%, #1D4ED8 100%)',
+            boxShadow: '0 4px 20px rgba(37, 99, 235, 0.4)',
+          }}
+        >
+          <ScanSearch size={16} aria-hidden="true" />
+          <span>New Analysis</span>
+        </Link>
       </div>
 
-      {/* Quick Action */}
-      <Link
-        to="/scanner"
-        className="flex items-center gap-3 mb-8 px-5 py-4 rounded-xl text-white font-semibold transition-all text-sm"
-        style={{ background: 'var(--color-brand)' }}
-        onMouseEnter={e => (e.currentTarget.style.background = 'var(--color-brand-hover)')}
-        onMouseLeave={e => (e.currentTarget.style.background = 'var(--color-brand)')}
-      >
-        <ScanSearch size={20} aria-hidden="true" />
-        + New Scan
-      </Link>
-
-      {/* Stats Grid */}
+      {/* Stats Cards */}
       {isLoading ? (
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
-          {[1,2,3,4].map(i => (
-            <div key={i} className="skeleton rounded-xl" style={{ height: '90px' }} />
+          {[1, 2, 3, 4].map(i => (
+            <div key={i} className="skeleton h-24 rounded-2xl" />
           ))}
         </div>
       ) : (
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
           <StatCard
-            label="Total Scans"  value={stats?.total_scans ?? 0}
+            label="Total Scans"
+            value={stats?.total_scans ?? 0}
             icon={TrendingUp}
-            fg="var(--color-brand)"  bg="var(--color-brand-subtle)"  accent="var(--color-brand)"
+            accentColor="var(--color-brand)"
+            delayIndex={1}
           />
           <StatCard
-            label="Critical" value={stats?.critical_risk_scans ?? 0}
+            label="Critical Threats"
+            value={stats?.critical_risk_scans ?? 0}
             icon={ShieldAlert}
-            fg="var(--color-risk-critical)"  bg="var(--color-risk-critical-bg)"  accent="var(--color-risk-critical)"
+            accentColor="var(--color-risk-critical)"
+            delayIndex={2}
           />
           <StatCard
-            label="High Risk" value={stats?.high_risk_scans ?? 0}
+            label="High Risk"
+            value={stats?.high_risk_scans ?? 0}
             icon={ShieldAlert}
-            fg="var(--color-risk-high)"  bg="var(--color-risk-high-bg)"  accent="var(--color-risk-high)"
+            accentColor="var(--color-risk-high)"
+            delayIndex={3}
           />
           <StatCard
-            label="Low / Safe" value={stats?.low_risk_scans ?? 0}
+            label="Safe / Low"
+            value={stats?.low_risk_scans ?? 0}
             icon={ShieldCheck}
-            fg="var(--color-risk-low)"  bg="var(--color-risk-low-bg)"  accent="var(--color-risk-low)"
+            accentColor="var(--color-risk-low)"
+            delayIndex={4}
           />
         </div>
       )}
 
-      {/* Recent Scans */}
+      {/* Recent Scans Table */}
       <div
-        className="rounded-xl border overflow-hidden"
+        className="rounded-3xl border overflow-hidden animate-fade-in-up delay-300"
         style={{ background: 'var(--color-surface)', borderColor: 'var(--color-border)' }}
       >
-        <div
-          className="flex items-center justify-between px-6 py-4 border-b"
-          style={{ borderColor: 'var(--color-border)' }}
-        >
-          <h2 className="font-semibold text-base" style={{ color: 'var(--color-text-primary)' }}>
-            Recent Scans
-          </h2>
-          <Link to="/history" className="text-sm transition-colors" style={{ color: 'var(--color-accent)' }}>
-            View all →
+        <div className="flex items-center justify-between px-6 py-4.5 border-b border-slate-800">
+          <div className="flex items-center gap-2">
+            <TrendingUp size={16} className="text-sky-400" aria-hidden="true" />
+            <h2 className="font-bold text-base text-white">Recent Analyses</h2>
+          </div>
+          <Link to="/history" className="text-xs font-semibold text-sky-400 hover:underline flex items-center gap-1">
+            <span>View all</span>
+            <ArrowRight size={13} />
           </Link>
         </div>
 
         {isLoading ? (
           <div className="p-6 space-y-3">
-            {[1,2,3].map(i => (
-              <div key={i} className="skeleton rounded-lg" style={{ height: '56px' }} />
+            {[1, 2, 3].map(i => (
+              <div key={i} className="skeleton h-14 rounded-xl" />
             ))}
           </div>
         ) : recentScans.length === 0 ? (
-          <div className="p-10 text-center">
-            <SearchX size={48} style={{ color: 'var(--color-text-muted)' }} className="mx-auto mb-4" aria-hidden="true" />
-            <p className="font-medium mb-1" style={{ color: 'var(--color-text-secondary)' }}>No scans yet.</p>
-            <p className="text-sm mb-5" style={{ color: 'var(--color-text-muted)' }}>
-              Start your first scan to see your risk analysis history here.
+          <div className="py-16 px-6 text-center">
+            <SearchX size={44} className="text-slate-600 mx-auto mb-3" aria-hidden="true" />
+            <p className="font-bold text-sm text-slate-300 mb-1">No scan history recorded</p>
+            <p className="text-xs text-slate-500 mb-5 max-w-sm mx-auto">
+              Submit your first message or investment link to populate threat analytics.
             </p>
             <Link
               to="/scanner"
-              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg text-sm font-semibold"
-              style={{ background: 'var(--color-brand)', color: '#ffffff' }}
+              className="btn-primary inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-xs font-bold text-white bg-blue-600 hover:bg-blue-500"
             >
-              <ScanSearch size={15} aria-hidden="true" />
-              Start Your First Scan
+              <ScanSearch size={14} /> Start First Scan
             </Link>
           </div>
         ) : (
-          <ul>
-            {recentScans.map((scan, idx) => (
-              <li
-                key={scan.scan_id}
-                style={{ borderTop: idx > 0 ? `1px solid var(--color-border)` : undefined }}
-              >
+          <div className="divide-y divide-slate-800/80">
+            {recentScans.map((scan) => {
+              const cfg = RISK_CONFIG[scan.risk_level as RiskLevel] || RISK_CONFIG.LOW;
+              const Icon = cfg.icon;
+              return (
                 <Link
+                  key={scan.scan_id}
                   to={`/results/${scan.scan_id}`}
-                  className="flex items-center gap-4 px-6 py-4 transition-colors"
-                  style={{ display: 'flex' }}
-                  onMouseEnter={e => (e.currentTarget.style.background = 'var(--color-surface-raised)')}
-                  onMouseLeave={e => (e.currentTarget.style.background = 'transparent')}
+                  className="flex items-center justify-between gap-4 px-6 py-4 transition-all hover:bg-slate-800/40 group"
                 >
-                  <RiskChip level={scan.risk_level as RiskLevel} score={scan.risk_score} />
-                  <div className="flex-1 min-w-0">
-                    <p className="text-sm truncate" style={{ color: 'var(--color-text-primary)' }}>
-                      {scan.summary_preview || 'No summary available'}
-                    </p>
-                    <p className="text-xs mt-0.5" style={{ color: 'var(--color-text-muted)' }}>
-                      {scan.indicator_count} signal{scan.indicator_count !== 1 ? 's' : ''} · {scan.analysis_type} ·{' '}
-                      {new Date(scan.created_at).toLocaleDateString()}
-                    </p>
+                  <div className="flex items-center gap-3.5 min-w-0 flex-1">
+                    <span
+                      className="flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold font-mono flex-shrink-0"
+                      style={{ color: cfg.fg, background: cfg.bg }}
+                    >
+                      <Icon size={12} aria-hidden="true" />
+                      {scan.risk_score}
+                    </span>
+
+                    <div className="min-w-0 flex-1">
+                      <p className="text-sm font-semibold text-white truncate group-hover:text-sky-400 transition-colors">
+                        {scan.summary_preview || 'Analysis completed'}
+                      </p>
+                      <p className="text-xs text-slate-500 mt-0.5 font-mono">
+                        {scan.indicator_count} signals · {scan.analysis_type} · {new Date(scan.created_at).toLocaleDateString()}
+                      </p>
+                    </div>
                   </div>
-                  <span className="text-xs hidden sm:block" style={{ color: 'var(--color-text-muted)' }}>
-                    View →
-                  </span>
+
+                  <ArrowRight size={15} className="text-slate-600 group-hover:text-sky-400 group-hover:translate-x-1 transition-all flex-shrink-0" />
                 </Link>
-              </li>
-            ))}
-          </ul>
+              );
+            })}
+          </div>
         )}
       </div>
     </div>

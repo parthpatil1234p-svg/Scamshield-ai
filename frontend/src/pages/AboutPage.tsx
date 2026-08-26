@@ -10,15 +10,15 @@ import {
 } from 'lucide-react';
 
 const INDICATORS = [
-  { code: 'TI-01', name: 'Guaranteed Return Claims',    desc: 'Phrases like "guaranteed profit", "100% returns", "zero risk" are legally and financially impossible for legitimate investments.' },
-  { code: 'TI-02', name: 'Urgency and Scarcity Tactics', desc: 'Artificial time pressure ("last 24 hours", "limited spots") is a hallmark of scam promotions designed to prevent careful evaluation.' },
-  { code: 'TI-03', name: 'Cryptocurrency Solicitation', desc: 'Requests for Bitcoin, USDT, or other crypto transfers are frequently used due to their irreversible nature.' },
-  { code: 'TI-04', name: 'Fake Authority Claims',       desc: 'False references to government agencies, RBI, SEBI, or celebrity endorsements to establish false credibility.' },
-  { code: 'TI-05', name: 'Suspicious Platform Reference', desc: 'Directing users to unofficial apps, Telegram channels, or WhatsApp groups for "exclusive" investment access.' },
-  { code: 'TI-06', name: 'Excessive Profit Promises',   desc: 'Promises of extreme returns (e.g., 10x in 7 days) that are statistically impossible in legitimate markets.' },
-  { code: 'TI-07', name: 'Personal Data Harvesting',    desc: 'Requests for Aadhaar, PAN, bank account numbers, or OTPs under the guise of "account setup".' },
-  { code: 'TI-08', name: 'MLM / Referral Structure',    desc: 'Multi-level commission structures are a defining feature of pyramid and Ponzi schemes.' },
-  { code: 'TI-09', name: 'Emotional Manipulation',      desc: 'Language designed to exploit fear of missing out (FOMO) or financial desperation.' },
+  { code: 'TI-01', name: 'Guaranteed Return Claim',          desc: 'Phrases like "guaranteed profit", "100% returns", "zero risk" are legally and financially impossible for legitimate investments.' },
+  { code: 'TI-02', name: 'Unrealistic Profit Multiplier',    desc: 'Promises of extreme returns (e.g., 500% profit, 10x in 24 hours) that are statistically impossible in legitimate markets.' },
+  { code: 'TI-03', name: 'Urgency / Pressure Tactic',        desc: 'Artificial time pressure ("last 24 hours", "limited spots", "act now") designed to prevent careful evaluation.' },
+  { code: 'TI-04', name: 'FOMO Language',                    desc: 'Fear of missing out language ("everyone is making money", "passive income secret") to trigger impulsive action.' },
+  { code: 'TI-05', name: 'False Authority / Celebrity',      desc: 'False references to RBI, SEBI, Elon Musk, Warren Buffett, or government approval to establish fake credibility.' },
+  { code: 'TI-06', name: 'Payment / Crypto Solicitation',    desc: 'Direct requests to transfer USDT, Bitcoin, or cash to activate/unlock an investment account.' },
+  { code: 'TI-07', name: 'Private Channel Redirection',      desc: 'Directing victims to unmonitored Telegram channels, WhatsApp groups, or VIP chats.' },
+  { code: 'TI-08', name: 'Testimonial / Social Proof',       desc: 'Fabricated payment screenshots, fake earnings claims, or manufactured user success stories.' },
+  { code: 'TI-09', name: 'Unregistered Investment Solicit.', desc: 'Soliciting capital for unregulated trading bots, algorithmic funds, or unregistered financial advisors.' },
 ];
 
 export function AboutPage() {
